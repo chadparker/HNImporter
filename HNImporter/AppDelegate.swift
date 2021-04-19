@@ -28,6 +28,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.setFrameAutosaveName("Main Window")
         window.contentView = NSHostingView(rootView: contentView)
         window.makeKeyAndOrderFront(nil)
+        
+        try! DatabaseManager.setup()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
