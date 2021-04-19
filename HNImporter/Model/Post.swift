@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import GRDB
 
 struct Post {
 
@@ -26,6 +27,6 @@ struct Post {
     let time: Date?
 }
 
-extension Post: Codable {
+extension Post: Codable, FetchableRecord, MutablePersistableRecord {
     
 }
