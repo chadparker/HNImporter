@@ -17,6 +17,7 @@
 		6352D607262BD9C500D8789F /* GRDB in Frameworks */ = {isa = PBXBuildFile; productRef = 6352D606262BD9C500D8789F /* GRDB */; };
 		6352D60A262BDA7000D8789F /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6352D609262BDA7000D8789F /* DatabaseManager.swift */; };
 		6352D60C262BDC3A00D8789F /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6352D60B262BDC3A00D8789F /* Post.swift */; };
+		6352D60E262D1AD800D8789F /* PostImporter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6352D60D262D1AD800D8789F /* PostImporter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		6352D5F9262BD65700D8789F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		6352D609262BDA7000D8789F /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
 		6352D60B262BDC3A00D8789F /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		6352D60D262D1AD800D8789F /* PostImporter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostImporter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -147,6 +149,7 @@
 			children = (
 				6352D609262BDA7000D8789F /* DatabaseManager.swift */,
 				6352D60B262BDC3A00D8789F /* Post.swift */,
+				6352D60D262D1AD800D8789F /* PostImporter.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -291,6 +294,7 @@
 				6352D5D7262BD65600D8789F /* AppDelegate.swift in Sources */,
 				6352D60A262BDA7000D8789F /* DatabaseManager.swift in Sources */,
 				6352D60C262BDC3A00D8789F /* Post.swift in Sources */,
+				6352D60E262D1AD800D8789F /* PostImporter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
