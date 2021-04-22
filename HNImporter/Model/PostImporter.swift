@@ -7,7 +7,11 @@
 
 import Foundation
 
-class PostImporter {
+class PostImporter: ObservableObject {
+    
+    @Published var fileCountProgress = 0
+    @Published var fileCountTotal = 0
+    @Published var postsImportedCount = 0
     
     lazy var calendar: Calendar = {
         var cal = Calendar.current

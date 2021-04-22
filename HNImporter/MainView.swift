@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct MainView: View {
+    
+    @EnvironmentObject var importer: PostImporter
+    
     var body: some View {
         Text("HN Importer")
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -17,6 +20,6 @@ struct MainView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        MainView()
+        MainView().environmentObject(PostImporter())
     }
 }

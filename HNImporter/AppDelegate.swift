@@ -15,8 +15,12 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        // Create the SwiftUI view that provides the window contents.
-        let contentView = MainView()
+        try! DatabaseManager.setup()
+        
+        let importer = PostImporter()
+        importer.importFromJS()
+        
+        let contentView = MainView().environmentObject(importer)
 
         // Create the window and set the content view.
         window = NSWindow(
@@ -28,8 +32,6 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         window.setFrameAutosaveName("Main Window")
         window.contentView = NSHostingView(rootView: contentView)
         window.makeKeyAndOrderFront(nil)
-        
-        try! DatabaseManager.setup()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
