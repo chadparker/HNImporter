@@ -14,6 +14,8 @@ struct MainView: View {
     var body: some View {
         VStack {
             Text("HN Importer")
+            ProgressView("", value: Float(importer.fileCountProgress), total: Float(importer.fileCountTotal))
+                        .frame(width: 300)
             Text("Current: \(importer.fileCountProgress)")
             Text("Total: \(importer.fileCountTotal)")
             Text("Posts Imported: \(importer.postsImportedCount)")
