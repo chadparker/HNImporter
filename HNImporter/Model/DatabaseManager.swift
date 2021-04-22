@@ -28,7 +28,7 @@ class DatabaseManager {
         #endif
         
         migrator.registerMigration("createProject") { db in
-            try db.create(table: "posts") { t in
+            try db.create(table: "post") { t in
                 t.column("id", .text).primaryKey()
                 
                 t.column("link_text", .text).notNull()
