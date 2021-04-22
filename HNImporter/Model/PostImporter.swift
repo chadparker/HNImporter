@@ -6,14 +6,22 @@
 //
 
 import Foundation
+import Combine
 
 class PostImporter: ObservableObject {
     
     @Published var fileCountProgress = 0
-    @Published var fileCountTotal = 0
+    @Published var fileCountTotal: Int = 0
     @Published var postsImportedCount = 0
     
-    let backgroundQueue = DispatchQueue(label: "PostImporterQueue", qos: .userInitiated)
+    private var fileCounter = PassthroughSubject<Int, Never>()
+    private var postCounter = PassthroughSubject<Int, Never>()
+    private var fileCounterSubscriber: AnyCancellable?
+    private var postCounterSubscriber: AnyCancellable?
+    
+    private let importQueue = DispatchQueue(label: "PostImporterQueue", qos: .userInitiated)
+    private let fileCountQueue = DispatchQueue(label: "FileCountQueue", qos: .background)
+    private let postCountQueue = DispatchQueue(label: "PostCountQueue", qos: .background)
     
     lazy var calendar: Calendar = {
         var cal = Calendar.current
@@ -21,20 +29,35 @@ class PostImporter: ObservableObject {
         return cal
     }()
     
-    func importFromJS() {
-        
-        // temporary deleteAll for now. more checking & UI later.
-        do {
-            try dbQueue.write { db in
-                _ = try Post.deleteAll(db)
+    init() {
+        fileCounterSubscriber = fileCounter
+            .throttle(for: 0.1, scheduler: fileCountQueue, latest: true)
+            .receive(on: DispatchQueue.main)
+            .sink { value in
+                self.fileCountProgress = value
             }
-        } catch {
-            fatalError("read error")
-        }
-        
-        backgroundQueue.async { [self] in
-            var idsSeen = Set<String>()
+        postCounterSubscriber = postCounter
+            .throttle(for: 0.1, scheduler: postCountQueue, latest: true)
+            .receive(on: DispatchQueue.main)
+            .sink { value in
+                self.postsImportedCount = value
+            }
+    }
+    
+    func importFromJS() {
+        importQueue.async { [self] in
             
+            // temporary deleteAll for now. more checking & UI later.
+            do {
+                try dbQueue.write { db in
+                    _ = try Post.deleteAll(db)
+                }
+            } catch {
+                fatalError("read error")
+            }
+            
+            var idsSeen = Set<String>()
+
             let filePaths = getDataFilePaths()
             DispatchQueue.main.async {
                 fileCountTotal = filePaths.count
@@ -58,10 +81,8 @@ class PostImporter: ObservableObject {
                         idsSeen.insert(post.id)
                     }
                 }
-                DispatchQueue.main.async {
-                    fileCountProgress = index + 1
-                    postsImportedCount = idsSeen.count
-                }
+                fileCounter.send(index + 1)
+                postCounter.send(idsSeen.count)
             }
         }
     }
