@@ -12,8 +12,13 @@ struct MainView: View {
     @EnvironmentObject var importer: PostImporter
     
     var body: some View {
-        Text("HN Importer")
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+        VStack {
+            Text("HN Importer")
+            Text("Current: \(importer.fileCountProgress)")
+            Text("Total: \(importer.fileCountTotal)")
+            Text("Posts Imported: \(importer.postsImportedCount)")
+        }
+        .frame(width: 400, height: 250)
     }
 }
 
