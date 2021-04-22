@@ -13,14 +13,23 @@ struct MainView: View {
     
     var body: some View {
         VStack {
-            Text("HN Importer")
-            ProgressView("", value: Float(importer.fileCountProgress), total: Float(importer.fileCountTotal))
-                        .frame(width: 300)
-            Text("Current: \(importer.fileCountProgress)")
-            Text("Total: \(importer.fileCountTotal)")
-            Text("Posts Imported: \(importer.postsImportedCount)")
+            Text("NewsGoose Importer")
+                .font(.title)
+                .padding()
+            VStack {
+                ProgressView("Importing posts…", value: Float(importer.fileCountProgress), total: Float(importer.fileCountTotal))
+                HStack {
+                    Text("\(importer.postsImportedCount) posts imported")
+                    Spacer()
+                    Text("file \(importer.fileCountProgress) of \(importer.fileCountTotal)")
+                }
+                .font(.callout.monospacedDigit())
+                .foregroundColor(.gray)
+            }
+            .frame(width: 300)
         }
-        .frame(width: 400, height: 250)
+        .padding()
+        .padding(.bottom) // window size bug
     }
 }
 
